@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<title>CDI Sample - Rates</title>
+</h:head>
+
+<h:body>
+    <h:outputStylesheet library="style" name="rates.css"/>
+	<h1>CDI Sample - Rates</h1>
+
+	<h2>The current rates for [CHF]:</h2>
+	<h:form id="rates">
+		<h:dataTable var="rate" value="#{home.rates}">
+
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Currency" />
+				</f:facet>
+				<h:outputText value="#{rate.currency}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Rate" />
+				</f:facet>
+				<h:outputText value="#{rate.rate}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Change [%]" />
+				</f:facet>
+				<h:outputText value="#{rate.change}" />
+			</h:column>
+
+		</h:dataTable>
+	</h:form>
+
+	<div id="ref">
+		<br />
+		<h:outputText styleClass="ref" value="Reference:" />
+		<h:outputText value="#{home.reference}" />
+	</div>
+
+</h:body>
+</html>

@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>CDI Sample - ToDo</title>
+    </h:head>
+    <h:body>
+        <h1>CDI Sample - ToDo</h1>
+
+        <h2>Create a new ToDo:</h2>
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Description" />
+                <h:inputText value="#{index.todo.description}"  size="30"/>
+            </h:panelGrid>
+            <h:commandButton value="Save" action="#{index.save}" />
+        </h:form>
+        <br />
+
+        <h2>ToDo List:</h2>
+        <h:form>
+        <h:dataTable var="todo" value="#{index.list}">
+
+            <h:column>
+              <f:facet name="header"><h:outputText value="Id"/></f:facet>
+              <h:outputText value="#{todo.id}"/>
+            </h:column>
+
+            <h:column>
+              <f:facet name="header"><h:outputText value="Description"/></f:facet>
+              <h:outputText value="#{todo.description}"/>
+            </h:column>
+
+            <h:column>
+              <f:facet name="header"><h:outputText value="Action"/></f:facet>
+              <h:commandLink value="Remove" action="#{index.delete(todo.id)}" />
+            </h:column>
+
+        </h:dataTable>
+		</h:form>
+    </h:body>
+</html>
+

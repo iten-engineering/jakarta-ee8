@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>CDI Sample - Hello JSF</title>
+</head>
+
+<body>
+	<h1>CDI Sample - Hello JSF</h1>
+
+
+	<h:form id="greetme">
+		<p>
+			<h:outputLabel value="Enter your name: " for="name" />
+			<h:inputText id="name" value="#{helloJSF.name}" />
+		</p>
+		<p>
+			<h:commandButton value="say hello" action="#{helloJSF.sayHello}" />
+		</p>
+		<p>
+			<h:outputText value="#{helloJSF.greeting}" />
+		</p>
+	</h:form>
+
+
+</body>
+</html>

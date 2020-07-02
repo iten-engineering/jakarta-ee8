@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="3.0"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	<display-name>Money Exchange</display-name>
+	<servlet>
+		<servlet-name>MoneyExchangeServlet</servlet-name>
+		<servlet-class>ch.itenengineering.mex.servlet.MoneyExchangeServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>LogoutServlet</servlet-name>
+		<servlet-class>ch.itenengineering.mex.servlet.LogoutServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MoneyExchangeServlet</servlet-name>
+		<url-pattern>/mex</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>LogoutServlet</servlet-name>
+		<url-pattern>/mex/logout</url-pattern>
+	</servlet-mapping>
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>All MoneyExchange resources</web-resource-name>
+			<description>Protects all MoneyExchange resources</description>
+			<url-pattern>/mex/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>Customer</role-name>
+			<role-name>VIP</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/login.html</form-login-page>
+			<form-error-page>/login-error.html</form-error-page>
+		</form-login-config>
+	</login-config>
+	<security-role>
+		<role-name>Customer</role-name>
+	</security-role>
+	<security-role>
+		<role-name>VIP</role-name>
+	</security-role>
+</web-app>

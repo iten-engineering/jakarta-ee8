@@ -1,0 +1,119 @@
+<html>
+    <head>
+        <title>Monitor</title>
+        <script type="text/javascript">
+            var websocket;
+
+            function initConnection() {
+                websocket = new WebSocket('ws://localhost:8080/websocket-chat/monitor');
+                
+                websocket.onopen = function(event) {
+                    websocketOpen(event)
+                };
+                websocket.onmessage = function(event) {
+                    websocketMessage(event)
+                };
+                websocket.onerror = function(event) {
+                    websocketError(event)
+                };
+
+                toggleStartStopBtn();
+            }
+
+            function closeConnection(){
+                websocket.close();
+                toggleStartStopBtn();
+
+                // remove all childs
+                let e = document.getElementById("memberPanel");
+                while (e.hasChildNodes()) {
+                    e.removeChild(e.lastChild);
+                }
+            }
+
+
+			function toggleStartStopBtn() {
+				let startBtn = document.getElementById('startBtn');
+				let stopBtn = document.getElementById('stopBtn');
+
+				let lastStartType = startBtn.type;
+				startBtn.type = stopBtn.type;
+				stopBtn.type = lastStartType;
+			}
+
+            function websocketOpen(event) {
+                console.log("webSocketOpen invoked");
+            }
+
+            function websocketMessage(event) {
+                console.log("websocketMessage invoked:" + event.data);
+
+				var m = JSON.parse(event.data);
+				console.log(m);
+
+				switch (m.action) {
+				case "create":
+					createMember(m.id, m.name, m.count);
+					break;
+				case "update":
+					updateMember(m.id, m.count);
+					break;
+				case "delete":
+					deleteMember(m.id);
+					break;			
+				}
+            }
+            
+            function websocketError(event) {
+                console.log("websocketError invoked");
+            }
+
+			function createMember(id, name, count) {
+				var e = document.getElementById("memberTemplate").cloneNode(true);
+				e.id = id;
+				e.hidden = false;
+
+				e.getElementsByClassName("memberName").item(0).appendChild(
+					document.createTextNode(name) );
+
+				e.getElementsByClassName("memberCnt").item(0).appendChild(
+						document.createTextNode(count) );
+
+				e.getElementsByClassName("memberId").item(0).appendChild(
+						document.createTextNode(id) );
+				
+				document.getElementById("memberPanel").appendChild(e);	
+			}
+
+			function updateMember(id, count) {
+				var e = document.getElementById(id);
+				e.getElementsByClassName("memberCnt").item(0).textContent = count;
+			}
+
+			function deleteMember(id) {
+				var e = document.getElementById(id);
+				e.parentNode.removeChild( e );				
+			}
+            
+        </script>
+    </head>
+    <body>
+        <h1>Chat Monitor</h1>
+        
+        <!-- start / stop member monitoring -->
+        <input type="button" id="startBtn" value="Start" onclick="initConnection()   "/>
+        <input type="hidden" id="stopBtn"  value="Stop"  onclick="closeConnection() "/>
+
+		<!-- show members -->		
+		<div id="memberPanel"></div>	
+		
+		<!-- hidden template -->
+		<div  id="memberTemplate"     style="background-color: DodgerBlue; width: 280px; border: 10px;" hidden>
+			<p>	<span class="memberName" style="margin-left: 6px;"></span> 
+				<span class="memberCnt"  style="margin-left:24px;"></span></p>
+			<p> <span class="memberId"   style="margin-left: 6px; font-size: 10px"></span>
+			</p>
+		</div>
+
+    </body>
+</html>

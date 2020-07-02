@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+    <head>
+        <title>Chat</title>
+        <meta name="viewport" content="width=device-width"/>
+        <script type="text/javascript">
+            var websocket;
+
+            function init() {
+                websocket = new WebSocket('ws://localhost:8080/websocket-chat/chat');
+                
+                websocket.onopen = function(event) {
+                    websocketOpen(event)
+                };
+                websocket.onmessage = function(event) {
+                    websocketMessage(event)
+                };
+                websocket.onerror = function(event) {
+                    websocketError(event)
+                };
+            }
+
+            function websocketOpen(event) {
+                console.log("webSocketOpen invoked");
+            }
+
+            function websocketMessage(event) {
+                console.log("websocketMessage invoked");
+                let chat = document.getElementById('chat');
+                chat.value = '\r' + event.data + chat.value;
+            }
+
+            function websocketError(event) {
+                console.log("websocketError invoked");
+            }
+
+            function sendMessage() {
+                var userName = document.getElementById('member').value;
+                var msg = document.getElementById('input').value;
+
+                websocket.send(userName + ": " + msg);
+            }
+            
+            function closeConnection(){
+                websocket.close();
+                window.location.href = "http://localhost:8080/websocket-chat/";
+            }
+
+            window.addEventListener("load", init, false);
+        </script>
+    </head>
+    <body>
+        <h1>Welcome #{member.name}</h1>
+        <form jsf:prependId="false">
+            <input type="hidden" id="member" value="#{member.name}"/>
+            <input type="text"   id="input"  size="27" /> 
+            <input type="button" id="sendBtn" value="Send" onclick="sendMessage()"/>
+            <br /><br />
+            <textArea id="chat" cols="40" rows="12" readonly="true" />
+            <br /><br />
+            <input type="button" id="leaveBtn" value="Leave" onclick="closeConnection()"/>
+        </form>
+    </body>
+</html>

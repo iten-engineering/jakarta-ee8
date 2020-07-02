@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Config Service</title>
+    </h:head>
+    <h:body>
+        <h1>Config Service</h1>
+
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="key" />
+                <h:inputText value="#{config.key}"  size="10"/>
+
+                <h:outputLabel value="value" />
+                <h:inputText value="#{config.value}"  size="10"/>
+
+                <h:commandButton value="read" action="#{config.read}" />
+                <h:commandButton value="save" action="#{config.save}" />
+            </h:panelGrid>
+        </h:form>
+
+        <br />
+
+		<h2>Current Configuration</h2>
+        <h:dataTable var="item" value="#{config.list}">
+            <h:column>#{item}</h:column>
+        </h:dataTable>
+
+    </h:body>
+</html>
+

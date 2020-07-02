@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Currency Converter</title>
+    </h:head>
+    <h:body>
+        <h1>Currency Converter</h1>
+
+        <h:form>
+            <h:panelGrid columns="3">
+                <h:inputText value="#{converter.valueCHF}"  size="5"/>
+                <h:outputLabel value="CHF" />
+                <h:commandButton value="convert" action="#{converter.convert}" />
+            </h:panelGrid>
+        </h:form>
+
+        <br />
+
+        <h:dataTable var="item" value="#{converter.result}">
+            <h:column>#{item}</h:column>
+        </h:dataTable>
+
+    </h:body>
+</html>
+

@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+    <head>
+        <title>Chat</title>
+    </head>
+    <body>
+        <h1>Login to the Chat</h1>
+        <form jsf:prependId="false">
+            <label for="member">Member Name:</label><br />
+            <input type="text" jsf:id="member" jsf:value="#{member.name}"/>
+            <br /><br />
+            <input type="submit" value="Join" jsf:action="chat"/>
+        </form>
+        <br />
+        <p>
+        	Beachte: <br /> 
+        	Das Beispiel läuft nicht im "built-in" Browser von Eclipse. 
+        	Bitte Firefox benutzen. <br />
+        </p>
+        <p>
+			Copyright ©, office@iten-engineering.ch
+        </p>
+    </body>
+</html>
